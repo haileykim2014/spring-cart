@@ -52,7 +52,7 @@ public class CartService {
 
   private static void isUserCart(Member member, List<Cart> carts) {
     boolean isOwnedByMember = carts.stream()
-        .anyMatch(cart -> cart.getMemberId().equals(member.getId()));
+        .allMatch(cart -> cart.getMemberId().equals(member.getId()));
 
     if (!isOwnedByMember) {
       throw new IllegalArgumentException("본인 카트가 아닙니다.");

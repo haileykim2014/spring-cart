@@ -87,7 +87,7 @@ class CartControllerTest {
         .productId(1L)
         .count(1)
         .build();
-
+    cartService.addItem(createDto, member.getId());
     System.out.println(cartService.cartProducts(member).size());
     var result = given()
         .auth().preemptive().basic(member.getEmail(), member.getPassword())

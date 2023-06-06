@@ -34,7 +34,7 @@ class ProductRepositoryTest {
   @DisplayName("상품을 추가한다.")
   @Test
   void save() {
-    Product insertedProduct = insertProduct("상품A", "image.jpg", new BigDecimal(10000));
+    Product insertedProduct = insertProduct("상품A", "image.jpg", new BigDecimal(10_000));
 
     assertThat(insertedProduct.getId()).isNotNull();
   }
@@ -42,9 +42,9 @@ class ProductRepositoryTest {
   @DisplayName("전체 상품을 조회한다.")
   @Test
   void getAll() {
-    Product insertedProduct1 = insertProduct("상품A", "image.jpg", new BigDecimal(10000));
-    Product insertedProduct2 = insertProduct("상품B", "image.jpg", new BigDecimal(10000));
-    Product insertedProduct3 = insertProduct("상품C", "image.jpg", new BigDecimal(10000));
+    Product insertedProduct1 = insertProduct("상품A", "image.jpg", new BigDecimal(10_000));
+    Product insertedProduct2 = insertProduct("상품B", "image.jpg", new BigDecimal(10_000));
+    Product insertedProduct3 = insertProduct("상품C", "image.jpg", new BigDecimal(10_000));
 
     List<Product> products = repository.getAll();
 
@@ -62,7 +62,7 @@ class ProductRepositoryTest {
         .id(insertedProduct.getId())
         .name("상품B")
         .image("image.jpg")
-        .price(new BigDecimal(20000))
+        .price(new BigDecimal(20_000))
         .build();
 
     Long updatedProductId = repository.update(updateProduct);
