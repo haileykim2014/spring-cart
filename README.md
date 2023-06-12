@@ -65,3 +65,43 @@
 * 장바구니 페이지 연동
     - [x]   장바구니 상품 추가
     - [x]   장바구니 목록 조회 및 제거
+
+
+----
+### Intellij와 Gradle 빌드 정리
+
+넥스트스텝 과제 중에 테스트 코드를 작성하고 통과한 후 Pull Request를 올렸으나, 리뷰어님께서 테스트 코드를 다시 확인해달라고 요청하셔서 동일한 코드임에도 실행 결과가 다른 이유에 대해 정리하게 되었습니다.
+
+### 문제점
+
+- 특정 테스트 코드의 실행 결과가 상이했습니다. 제가 실행할 때는 테스트가 통과되었지만, 리뷰어님의 실행에서는 실패하거나 그 반대로 동작했습니다.
+- 제가 실행할 때 테스트 코드에서 발생한 오류 메시지는 jackson 라이브러리와 관련된 내용이었습니다.
+
+```java
+com.fasterxml.jackson.databind.exc.InvalidDefinitionException: Cannot construct instance of `cart.dto.CartCreateDto` (no Creators, like default constructor, exist): cannot deserialize from Object value (no delegate- or property-based Creator)
+ at [Source: (org.springframework.util.StreamUtils$NonClosingInputStream); line: 1, column: 2]
+```
+
+### ****의문점****
+
+Jackson 2.13.0 버전부터는 NoArgsConstructor 어노테이션을 추가하지 않아도 된다고 알고 있었는데, 제 코드에서는 계속해서 역직렬화 시에 no args constructor가 없다는 오류가 발생했지만, 리뷰어님의 실행에서는 정상적으로 동작했습니다.
+
+### 원인
+
+- 빌드 및 실행 방식을 제가 Intellij로 설정하고 사용하고 있었습니다. 그러나 리뷰어님은 Gradle로 설정한 것이 차이점이었습니다.
+- Intellij와 Gradle은 서로 다른 클래스로더 방식으로 작동합니다.
+
+### **ChatGPT는 같아야 한다고 했는데...**
+
+그래서 수동으로 라이브러리 설정을 시도해보았습니다.
+
+- 여전히 Intellij에서 빌드 및 실행은 유지하고
+- build.gradle 파일에 Jackson 라이브러리를 추가하고 수동으로 등록하였습니다.
+- 기존의 빌드 결과물인 **`out`** 폴더를 삭제하더라도 라이브러리가 제대로 작동하지 않았습니다. 여전히 위와 같은 오류가 발생했습니다.
+
+### ****Intellij가 실행 속도가 빠르다고 하지만...****
+
+그러나 의도한대로 라이브러리가 적용되지 않아 테스트 코드가 작동하지 않았습니다!
+Build and Run 설정 창을 다시 살펴보니, IDE에서 실행할 때 모든 Gradle 플러그인을 지원하지 않는다는 사실이 명시되어 있었습니다. 이게 바로 이 의미였던 것입니다.
+
+![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/d73fb120-660b-42c0-b9e3-7e0f1fb898ec/Untitled.png](https://velog.velcdn.com/images%2Fdltkdgns3435%2Fpost%2F6fadceeb-208e-426c-ab32-031982191f26%2Fimage.png)
