@@ -1,5 +1,68 @@
 # jwp-cart
 
+## Step 1 - Product Management Function
+
+### Mission 1
+
+* [Mission Link](https://github.com/next-step/spring-cart/pull/41)
+
+### Mission Introduction
+
+This mission involves implementing the product management function of a shopping mall using Spring Web MVC. The mission provides code that allows you to check the product management page using Thymeleaf. To achieve this, you need to implement the CRUD API for product management and connect the product list page for users and the product management page for administrators.
+
+### Requirements
+
+* Product List Page Connection
+    - [x] Complete the page where the product list is displayed using the `index.html` file.
+    - [x] Implement access to the product list page when accessing the `/` URL.
+    - [x] Return the `index.html` page when accessing the `/` URL.
+* Product
+    - [x] Implement the function to edit product information.
+    - Product information includes:
+        - [x] Product ID
+        - [x] Product Name
+        - [x] Product Image
+        - [x] Product Price
+* Money Domain
+    - [x] Must have a value of 0 or more.
+* Add Product Management CRUD API functions
+    - [x] Create Product API
+    - [x] Retrieve Product List API
+    - [x] Edit Product API
+    - [x] Delete Product API
+* Admin Tool Page Connection
+    - [x] Complete the product management page using the `admin.html` file and the product management CRUD API.
+    - [x] Complete the functions in the `admin.js` file.
+    - [x] Ensure access to the admin tool page when accessing the `/admin` URL.
+
+## Step 2 - Shopping Cart Function
+
+### Mission 1
+
+* [Mission Link](https://github.com/next-step/spring-cart/pull/44)
+
+### Mission Introduction
+
+This mission involves implementing the shopping cart function. This stage is broadly divided into authentication and the implementation of the shopping cart function. The information about which user's cart to add or remove products from is authenticated using Basic Auth. User settings are handled on the settings page. The shopping cart function must be implemented based on authentication, allowing products to be added to the cart, removed from the cart, and the cart list to be viewed.
+
+### Requirements
+
+* Implement User Functions
+    - [x] User information includes:
+    - User selection functionality on the settings page.
+* Implement Shopping Cart Functions
+    - [x] Add product to the cart.
+    - [x] Remove product from the cart.
+    - [x] View cart list.
+    - User information should be authenticated using the Authorization field in the request header.
+* Shopping Cart Page Connection
+    - [x] Add product to the cart.
+    - [x] View and remove products from the cart.
+
+------------------------------
+
+# jwp-cart
+
 # 1단계 - 상품 관리 기능
 
 ### 미션1
